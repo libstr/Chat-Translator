@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chatapp</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
+</head>
+<style type="text/css">
+  
+  @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  font: 14px/20px "Lato", Arial, sans-serif;
+  padding: 40px 0;
+  color: white;
+}
+
+.containerChat {
+  margin: 0 auto;
+  width: 780px;
+  background: #444753;
+  border-radius: 5px;
+}
+
+.containerInputs{
+  margin-left: 40%;
+  margin-top: 5%;
+  width: 20%;
+    background: #F2F5F8;
+    border-radius: 10px;
+
+}
+.scroll {
+  width: 515px;
+  height: 40px
+  overflow: auto;
+  float: left;
+}
+
+
+
+.scroll1::-webkit-scrollbar {
+  width: 5px;
+}
+ 
+.scroll1::-webkit-scrollbar-track {
+  background: #ddd;
+}
+ 
+.scroll1::-webkit-scrollbar-thumb {
+  background: #666; 
+}
+
+
+.people-list {
+  width: 260px;
+  float: left;
+}
+.people-list .search {
+  padding: 20px;
+}
+.people-list input {
+  border-radius: 3px;
+  border: none;
+  padding: 14px;
+  color: white;
+  background: #6A6C75;
+  width: 90%;
+  font-size: 14px;
+}
+.people-list .fa-search {
+  position: relative;
+  left: -25px;
+}
+.people-list ul {
+  padding: 20px;
+  height: 600px;
+}
+.people-list ul li {
+  padding-bottom: 20px;
+}
+.people-list img {
+  float: left;
+}
+.people-list .about {
+  float: left;
+  margin-top: 8px;
+}
+.people-list .about {
+  padding-left: 8px;
+}
+.people-list .status {
+  color: #92959E;
+}
+
+.chat {
+  width: 520px;
+  float: left;
+  background: #F2F5F8;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  color: #434651;
+}
+.chat .chat-header {
+  padding: 20px;
+  border-bottom: 2px solid white;
+}
+.chat .chat-header img {
+  float: left;
+}
+.chat .chat-header .chat-about {
+  float: left;
+  padding-left: 10px;
+  margin-top: 6px;
+}
+.chat .chat-header .chat-with {
+  font-weight: bold;
+  font-size: 16px;
+}
+.chat .chat-header .chat-num-messages {
+  color: #92959E;
+}
+.chat .chat-header .fa-star {
+  float: right;
+  color: #D8DADF;
+  font-size: 20px;
+  margin-top: 12px;
+}
+.chat .chat-history {
+  padding: 30px 30px 20px;
+  border-bottom: 2px solid white;
+  overflow-y: scroll;
+  height: 575px;
+}
+.chat .chat-history .message-data {
+  margin-bottom: 15px;
+}
+.chat .chat-history .message-data-time {
+  color: #a8aab1;
+  padding-left: 6px;
+}
+.chat .chat-history .message {
+  color: white;
+  padding: 18px 20px;
+  line-height: 26px;
+  font-size: 16px;
+  border-radius: 7px;
+  margin-bottom: 30px;
+  width: 90%;
+  position: relative;
+}
+.chat .chat-history .message:after {
+  bottom: 100%;
+  left: 7%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-bottom-color: #4AB19D;
+  border-width: 10px;
+  margin-left: -10px;
+}
+.chat .chat-history .my-message {
+  background: #4AB19D;
+}
+.chat .chat-history .other-message {
+  background: #94C2ED;
+}
+.chat .chat-history .other-message:after {
+  border-bottom-color: #94C2ED;
+  left: 93%;
+}
+.chat .chat-message {
+  padding: 30px;
+}
+.chat .chat-message input {
+  width: 100%;
+  border: none;
+  padding: 10px 20px;
+  font: 14px/22px "Lato", Arial, sans-serif;
+  margin-top: 20px;
+  border-radius: 5px;
+  resize: none;
+}
+.chat .chat-message .fa-file-o, .chat .chat-message .fa-file-image-o {
+  font-size: 16px;
+  color: gray;
+  cursor: pointer;
+}
+.chat .chat-message button {
+  float: right;
+  color: #94C2ED;
+  font-size: 16px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  background: #F2F5F8;
+}
+.chat .chat-message button:hover {
+  color: #75b1e8;
+}
+
+.online, .offline, .me {
+  margin-right: 3px;
+  font-size: 10px;
+}
+
+.online {
+  color: #4AB19D;
+}
+.onlineUsrs{
+  font-family: Lato;
+    text-align: center;
+    font-size: 1.1em;
+    padding: 25px;
+}
+
+.offline {
+  color: #E38968;
+}
+
+.me {
+  color: #94C2ED;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.float-right {
+  float: right;
+}
+
+.formJoin{
+  padding: 3%;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.joincht{
+  font-family: Lato;
+  text-align: center;
+  color: #444753;
+  font-size: 3em;
+  margin-top: 10%;
+}
+.foot{
+  bottom: 1%;
+}
+</style>
+
+
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">UNITE</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html">Main</a>
+                <span class="sr-only">(current)</span>  
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About us</a>      
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="code.html">Code</a>
+            </li>     
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+<br>
+<br>
+<br>
+
+		<div id="app">
+    <div>
+				<div  v-if="!ready">
+            <H2 class="joincht">Join A Chatroom</H2>
+					   <div  class="containerInputs">
+									<form @submit.prevent="addName">
+				  							<div class="form-group formJoin">
+
+							  						<input type="text" class="form-control " v-model="name" style="border:0px;line-height:2"placeholder="Enter name" ><br>
+                            <input type="text" class="form-control " v-model="rom" style="border:0px;line-height:2" placeholder="Enter room"><br>
+                            <select class="form-control" name="to" v-model="lang" id="lang" style="border:0px">
+                                    <option default selected value="en">English</option>
+                                    <option value="ar">Arabic</option>
+                                      <option value="hi">Hindi</option>
+                                      <option value="ko">Korean</option>
+                                      <option value="es">Spanish</option>
+                                  </select><br>
+                                    <div style="margin-left:40%;">
+							  						<input type="submit" value="Join" style="border:0px; padding:5%;background-color:#444753; color:#fff;border-radius:7px;width:30%">
+                            </div>
+			  								</div>
+									</form>
+								</div>
+                <br><br><br><br>
+          </div>
+
+
+
+
+        <div class="clearfix containerChat" v-else>
+                        <div class="people-list" id="people-list" >
+
+                                <div class="onlineUsrs">
+                                Online Users
+                                </div>
+
+                              
+                              <ul class="list">
+                                <li class="clearfix" v-for="friend in friends">
+                                  <div class="about">
+                                    <div class="name">{{friend.name}}</div>
+                                    <div class="status">
+                                      <i class="fa fa-circle online"></i> {{friend.type}}
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                      </div>
+                      
+                      <div class="chat">
+                          <div class="chat-header clearfix">
+                            <div class="chat-about">
+                            {{roomname}}
+                            </div>
+
+                      
+                          </div> <!-- end chat-header -->
+                        
+                           <div class="chat-history scroll scroll1">
+                              <ul>
+                                
+                                <li class="clearfix" v-for="message in messages">
+                                <div v-if="message.type == 0">
+                                        <div class="message-data align-right">
+                                          <span class="message-data-name" >{{message.by}}</span> <i class="fa fa-circle me"></i>
+                                        </div>
+                                        <div class="message other-message float-right">
+                                          {{message.message}}
+                                        </div>
+                                  </div>
+                                  <div v-else>
+                                      <div class="message-data"  >
+                                        <span class="message-data-name"><i class="fa fa-circle online"></i> {{message.by}}</span>
+                                      </div>
+                                      <div class="message my-message">
+                                        {{message.message}}
+                                      </div>
+                                  </div>
+                                </li>
+
+                              </ul>
+                              
+                            </div> <!-- end chat-history -->
+                        
+                            <form @submit.prevent="send">
+                                <div class="chat-message clearfix form-group">
+                                                  <small v-if="typing" class="text-gray float-left">{{typing}} is typing...</small>
+
+                                  <input  type="text" v-on:keyup.13="submit" name="message-to-send" id="message-to-send" v-model="newmessage" placeholder ="Type your message" rows="3"></input>
+
+                                </div> <!-- end chat-message -->
+                            </form>
+                        
+                      </div> <!-- end chat -->
+          </div>
+                     
+					</div>
+		</div>
+
+
+    <br>
+    <br>
+    <br>
+   
+
+
+
+    <div class="foot">
+        <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; KNU Web Programming - Project 7</p>
+      </div>
+    </footer>
+
+    </div>
+
+    
+
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+  var socket = io.connect();
+  let app = new Vue({
+  	el:'#app',
+  	data:{
+  		newmessage:null,
+  		messages :[],
+  		typing:false,
+  		name:null,
+  		friends:[],
+      roomname:null,
+      lang:null,
+      rom:"abc",
+  		ready:false,
+      oldready:false
+      
+  	},
+  	watch:{
+  			newmessage(value){
+  				value ? socket.emit('typing',{name:this.name,rm:this.rom}):socket.emit('stoptyping',{rm:this.rom})
+  			}
+  	},
+  	methods:{
+  		send(){
+  				this.messages.push({message:this.newmessage,type:0,by:"Me"})
+
+  				socket.emit('chat-message',{message:this.newmessage,user:this.name,rm:this.rom})
+          
+  				this.newmessage=null
+          var container = this.$el.querySelector(".chat-history");
+          container.scrollTop = container.scrollHeight;
+  		},
+  		addName(){
+        if(this.rom.length === 4){
+          console.log(this.rom);
+          socket.emit('creat', this.rom);
+
+
+  			   this.ready=true
+
+        }else{
+          alert("the pin should be 4 digits");
+        }
+  			socket.emit('joined',{name:this.name,rm:this.rom})
+  		}
+  	},
+  	created(){
+
+
+
+  			window.onbeforeunload=()=>{
+  				socket.emit('left',{name:this.name,rm:this.rom})
+  			}
+  			
+       
+
+       socket.on('creat',(data)=>{
+            console.log("reached");
+
+              if(this.oldready === false){
+                  var container = this.$el.querySelector(".chat-history");
+
+                  container.scrollTop = container.scrollHeight;
+
+                this.roomname=data.rn;
+                var oldcht = data.oldchat.split("#5#");
+                for(var i=0;i<oldcht.length-1;i++){
+                  var msgandname=oldcht[i].split("##");                    
+                  if(msgandname[1] === this.name){
+                    this.messages.push({message:msgandname[0],type:0,by:"Me"})
+                  }else{
+                   
+                    this.messages.push({message:msgandname[0],type:1,by:msgandname[1]})
+                  }
+
+                }
+                this.oldready = true;
+              }
+
+        })
+  			socket.on('chat-message',(data)=>{
+
+
+          var rm = data.rm;
+          console.log(rm);
+          var url = "https://translate.yandex.net/api/v1.5/tr.json/translate",
+          keyAPI = "trnsl.1.1.20181027T084314Z.3006f154770de67a.ac5f601ad6036cf48a50a5070cd925483f823cc6";
+          var textAPI = data.message;
+          var dataTr = "key="+keyAPI+"&text="+textAPI+"&lang="+this.lang;
+        
+          var app=this;  
+            axios.get(url+"?"+dataTr).then(function (response){
+            console.log(response.data.text);
+            var x =JSON.stringify(response.data.text).split(/"/);
+            app.messages.push({message:x[1],type:1,by:data.user});
+          })
+
+
+          var container = this.$el.querySelector(".chat-history");
+          container.scrollTop = container.scrollHeight;
+  			})
+
+  			socket.on('typing',(name)=>{
+  				this.typing=name.name;
+  			})
+
+  			socket.on('stoptyping',()=>{
+  				this.typing=false;
+  			})
+
+  			socket.on('joined',(data)=>{
+  				this.friends.push({name:data.name,type:"online"})
+  			})
+
+  			socket.on('left',(data)=>{
+          for(var i=0;i<this.friends.length;i++){
+            if(this.friends[i].name === data.name){
+              Vue.set(this.friends.splice(i,1))
+            }
+          }
+  				
+  			})
+
+  	}
+  })
+</script>s
+</html>
